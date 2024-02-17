@@ -1,3 +1,11 @@
+
+import { Box } from "@chakra-ui/react";
+import Form from "../components/form";
+
 export default function EditContact() {
-  return <h1>Hello EditContact.</h1>;
+  return (
+    <Box pt={4}>
+      <Form isAddMode={false} />
+    </Box>
+  );
 }

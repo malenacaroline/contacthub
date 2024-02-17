@@ -1,5 +1,10 @@
-import { Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import Form from "../components/form";
 
 export default function AddContact() {
-  return <div><Button colorScheme='blue'>Add Contact</Button></div>;
+  return (
+    <Box pt={4}>
+      <Form isAddMode/>
+    </Box>
+  );
 }
