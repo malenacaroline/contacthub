@@ -1,28 +1,14 @@
 import Link from "next/link";
-import { Link as LinkUI } from "@chakra-ui/react";
+import { Box, Link as LinkUI } from "@chakra-ui/react";
+
 export default function Home() {
   return (
     <div>
-      <div>
-        <ul>
-          <li>
-            <LinkUI as={Link} href="/">
-              Home
-            </LinkUI>
-          </li>
-          <li>
-            <LinkUI as={Link} href="/editContact">
-              Edit
-            </LinkUI>
-          </li>
-          <li>
-            <LinkUI as={Link} href="/addContact">
-              Add
-            </LinkUI>
-          </li>
-        </ul>
-      </div>
-      <h1>Homepage</h1>
+      <Box mt={4}>
+        <LinkUI as={Link} href="/addContact" colorScheme="blue">
+          Add Contact
+        </LinkUI>
+      </Box>
     </div>
   );
 }
