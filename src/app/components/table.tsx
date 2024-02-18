@@ -16,10 +16,13 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { ROUTES } from "../routes";
 import { usePathname } from "next/navigation";
 
-export const TableContact = (props: { contacts: Inputs[] }) => {
+type TableProps = {
+  contacts: Inputs[];
+};
+
+export const TableContact = ({ contacts }: TableProps) => {
   const pathname = usePathname();
-  
-  let getContact: Inputs | undefined;
+
   let lsContacts: Inputs[] = [];
 
   const deleteContact = (email: string) => {
@@ -45,7 +48,7 @@ export const TableContact = (props: { contacts: Inputs[] }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {props.contacts.map((contact, index) => (
+          {contacts.map((contact, index) => (
             <Tr key={index}>
               <Td>{contact.firstname}</Td>
               <Td>{contact.lastname}</Td>
