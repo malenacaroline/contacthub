@@ -1,6 +1,6 @@
 "use client";
-import { Form } from "@/components/Form";
+import { AddEditContact } from "@/contacts/components";
 
 export default function AddContact() {
-  return <Form />;
+  return <AddEditContact />;
 }

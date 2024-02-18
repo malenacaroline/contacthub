@@ -9,7 +9,7 @@ import {
   Button,
   Center,
 } from "@chakra-ui/react";
-import { useContactContext } from "@/ContactContext";
+import { useContactContext } from "@/contacts/context";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
@@ -19,7 +19,7 @@ export type Inputs = {
   lastname: string;
 };
 
-export function Form() {
+export function AddEditContact() {
   const {
     handleSubmit,
     register,

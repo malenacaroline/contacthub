@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Providers } from "@/providers";
 import { Container } from "@chakra-ui/react";
-import { Navbar } from "@/components/Navbar";
+import { Navbar } from "@/components";
 import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {

@@ -1,8 +1,8 @@
 "use client";
 import NextLink from "next/link";
 import { Box, Button } from "@chakra-ui/react";
-import { TableContact } from "@/components/TableContact";
-import { Inputs } from "@/components/Form";
+import { ContactList } from "@/contacts/components";
+import { Inputs } from "@/contacts/components/AddEditContact";
 import { AddIcon } from "@chakra-ui/icons";
 import { ROUTES } from "@/routes";
 import { usePathname } from "next/navigation";
@@ -25,7 +25,7 @@ export default function Home() {
           Add Contact
         </Button>
       </NextLink>
-      <TableContact contacts={lsContacts} />
+      <ContactList contacts={lsContacts} />
     </Box>
   );
 }
