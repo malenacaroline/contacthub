@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import { useContactContext } from "../ContactContext";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 type Inputs = {
   email: string;
@@ -19,31 +21,72 @@ type Inputs = {
   lastname: string;
 };
 
-export default function Form(props: { isAddMode?: boolean }) {
+export default function Form() {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
+    setValue,
   } = useForm<Inputs>();
+  let getContact: Inputs | undefined;
+
+  const searchParams = useSearchParams();
+  const emailParam = searchParams.get("email");
+
   const contactContext = useContactContext();
+  let lsContacts: Inputs[] = [];
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
+      getContact = lsContacts.find((item) => item["email"] === emailParam);
+      if (getContact) {
+        setValue("email", getContact.email);
+        setValue("firstname", getContact.firstname);
+        setValue("lastname", getContact.lastname);
+      }
+    }
+  }, [emailParam]);
+
+  const validateEmail = (value: string) => {
+    lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
+    console.log("validateEmail called");
+    console.log(value);
+    console.log(lsContacts);
+    const emailExists = lsContacts.some(contact => contact.email === value);
+    console.log(emailExists);
+    if (emailExists) {
+      return "Email already exists";
+    }
+    return true;
+  };
 
   const onSubmit: SubmitHandler<Inputs> = (values) => {
     console.log("onSubmit called");
     contactContext?.setContact(values);
     console.log(contactContext);
+
+    if (lsContacts) {
+      lsContacts.push(values);
+      console.log(lsContacts);
+      localStorage.setItem("contacts", JSON.stringify(lsContacts));
+    } else {
+      localStorage.setItem("contacts", JSON.stringify(values));
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Center>
         <Text as="h1" fontSize="3xl" fontWeight="bold" color="teal.500">
-          {props.isAddMode ? "Add User" : "Edit User"}
+          {emailParam ? "Add User" : "Edit User"}
         </Text>
       </Center>
       <FormControl isInvalid={Boolean(errors.email)} pt={4}>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
           id="email"
+          type="email"
           placeholder="Email"
           {...register("email", {
             required: "This is required",
@@ -51,6 +94,7 @@ export default function Form(props: { isAddMode?: boolean }) {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: "Invalid email address",
             },
+            validate: validateEmail
           })}
         />
         <FormErrorMessage>
@@ -97,7 +141,7 @@ export default function Form(props: { isAddMode?: boolean }) {
         type="submit"
         mt={4}
       >
-        {props.isAddMode ? "Add User" : "Save Changes"}
+        {emailParam ? "Add User" : "Save Changes"}
       </Button>
     </form>
   );

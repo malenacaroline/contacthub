@@ -9,7 +9,7 @@ export default function EditContact() {
   console.log(contactContext);
   return (
     <Box pt={4}>
-      <Form isAddMode={false} />
+      <Form />
     </Box>
   );
 }

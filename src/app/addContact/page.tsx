@@ -10,8 +10,10 @@ export default function AddContact() {
 
   return (
     <Box pt={4}>
-      <Button onClick={() => contactContext?.setContact("Hello")}>Click me</Button>
-      <Form isAddMode/>
+      <Button onClick={() => contactContext?.setContact("Hello")}>
+        Click me
+      </Button>
+      <Form />
     </Box>
   );
 }
