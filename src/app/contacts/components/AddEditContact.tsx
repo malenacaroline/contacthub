@@ -9,15 +9,9 @@ import {
   Button,
   Center,
 } from "@chakra-ui/react";
-import { useContactContext } from "@/contacts/context";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-
-export type Inputs = {
-  email: string;
-  firstname: string;
-  lastname: string;
-};
+import { useContactContext, ContactType } from "@/contacts";
 
 export function AddEditContact() {
   const {
@@ -25,7 +19,7 @@ export function AddEditContact() {
     register,
     formState: { errors, isSubmitting },
     setValue,
-  } = useForm<Inputs>();
+  } = useForm<ContactType>();
 
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email");
@@ -33,8 +27,8 @@ export function AddEditContact() {
 
   const contactContext = useContactContext();
 
-  let getContact: Inputs | undefined;
-  let lsContacts: Inputs[] = [];
+  let getContact: ContactType | undefined;
+  let lsContacts: ContactType[] = [];
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -61,7 +55,7 @@ export function AddEditContact() {
     return true;
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (values) => {
+  const onSubmit: SubmitHandler<ContactType> = (values) => {
     console.log("onSubmit called");
     contactContext?.setContact(values);
     console.log(contactContext);

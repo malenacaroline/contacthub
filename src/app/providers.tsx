@@ -1,7 +1,7 @@
 "use client";
 
 import { ChakraProvider } from "@chakra-ui/react";
-import { ContactProvider } from "@/contacts/context";
+import { ContactProvider } from "@/contacts";
 import { PropsWithChildren } from "react";
 
 export function Providers({ children }: PropsWithChildren) {

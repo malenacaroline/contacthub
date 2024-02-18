@@ -10,20 +10,20 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { Inputs } from "@/contacts/components/AddEditContact";
+import { ContactType } from "@/contacts";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { ROUTES } from "@/routes";
 import { usePathname } from "next/navigation";
 
 type TableProps = {
-  contacts: Inputs[];
+  contacts: ContactType[];
 };
 
 export const ContactList = ({ contacts }: TableProps) => {
   const pathname = usePathname();
 
-  let lsContacts: Inputs[] = [];
+  let lsContacts: ContactType[] = [];
 
   const deleteContact = (email: string) => {
     lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");

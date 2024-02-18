@@ -2,14 +2,14 @@
 import NextLink from "next/link";
 import { Box, Button } from "@chakra-ui/react";
 import { ContactList } from "@/contacts/components";
-import { Inputs } from "@/contacts/components/AddEditContact";
+import { ContactType } from "@/contacts";
 import { AddIcon } from "@chakra-ui/icons";
 import { ROUTES } from "@/routes";
 import { usePathname } from "next/navigation";
 
 export default function Home() {
   const pathname = usePathname();
-  let lsContacts: Inputs[] = [];
+  let lsContacts: ContactType[] = [];
 
   if (typeof window !== "undefined") {
     lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
