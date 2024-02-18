@@ -10,7 +10,7 @@ import {
   FormControl,
 } from "@chakra-ui/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useContactContext, ContactType } from "@/contacts";
+import { useContactContext, ContactType, useContactsCRUD } from "@/contacts";
 import { ROUTES } from "@/routes";
 import { useEffect } from "react";
 
@@ -32,6 +32,8 @@ export function AddEditContact() {
   if (!contactContext) return;
   const { contacts } = contactContext;
 
+  const { addContact, editContact } = useContactsCRUD();
+
   useEffect(() => {
     if (!isEdit) return;
     const editContact = contacts.find(
@@ -51,21 +53,8 @@ export function AddEditContact() {
   };
 
   const onSubmit: SubmitHandler<ContactType> = (newContact) => {
-    if (isEdit)
-      localStorage.setItem(
-        "contacts",
-        JSON.stringify(
-          contacts.map((contact) =>
-            contact.email === newContact.email ? newContact : contact
-          )
-        )
-      );
-    else
-      localStorage.setItem(
-        "contacts",
-        JSON.stringify([...contacts, newContact])
-      );
-    window.dispatchEvent(new Event("contactStorageEvent"));
+    if (isEdit) editContact(newContact);
+    else addContact(newContact);
     router.push(ROUTES.Contacts);
   };
 

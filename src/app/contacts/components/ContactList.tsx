@@ -14,7 +14,7 @@ import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { ROUTES } from "@/routes";
 import { usePathname } from "next/navigation";
-import { useContactContext } from "..";
+import { useContactContext, useContactsCRUD } from "..";
 
 export const ContactList = () => {
   const pathname = usePathname();
@@ -23,13 +23,7 @@ export const ContactList = () => {
   if (!contactContext) return;
   const { contacts } = contactContext;
 
-  const deleteContact = (email: string) => {
-    localStorage.setItem(
-      "contacts",
-      JSON.stringify(contacts.filter((contact) => contact.email !== email))
-    );
-    window.dispatchEvent(new Event('contactStorageEvent'));
-  };
+  const { deleteContact } = useContactsCRUD();
 
   return (
     <TableContainer
