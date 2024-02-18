@@ -14,8 +14,10 @@ export const Navbar = () => {
     >
       <Flex align="center" mr={5}>
         <NextLink href="/" passHref>
-          <Link>
-            <Text fontSize="2xl" fontWeight="bold">ContactHub</Text>
+          <Link as="span">
+            <Text fontSize="2xl" fontWeight="bold">
+              ContactHub
+            </Text>
           </Link>
         </NextLink>
       </Flex>

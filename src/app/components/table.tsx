@@ -20,7 +20,7 @@ export const TableContact = (props: { contacts: Inputs[] }) => {
 
   const deleteContact = (email: string) => {
     lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-    lsContacts = lsContacts.filter((item) => item["email"]!== email);
+    lsContacts = lsContacts.filter((item) => item["email"] !== email);
     localStorage.setItem("contacts", JSON.stringify(lsContacts));
   };
 
@@ -56,7 +56,6 @@ export const TableContact = (props: { contacts: Inputs[] }) => {
                       <EditIcon />
                     </Button>
                   </NextLink>
-
                   <Button
                     colorScheme="red"
                     onClick={() => deleteContact(contact.email)}
