@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div>
       <Box mt={4}>
-        <NextLink href={`${pathname}${ROUTES.Add}`} passHref>
+        <NextLink href={`${pathname}${ROUTES.Add}`}>
           <Button colorScheme="teal" mb={4}>
             <AddIcon mr={2} />
             Add Contact

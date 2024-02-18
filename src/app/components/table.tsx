@@ -54,7 +54,6 @@ export const TableContact = (props: { contacts: Inputs[] }) => {
                 <Flex>
                   <NextLink
                     href={`${pathname}${ROUTES.Edit}?email=${contact.email}`}
-                    passHref
                   >
                     <Button colorScheme="teal" mr={4}>
                       <EditIcon />

@@ -13,15 +13,13 @@ export const Navbar = () => {
       bg="teal.500"
       color="white"
     >
-      <Flex align="center" mr={5}>
-        <NextLink href={ROUTES.Contacts} passHref>
-          <Link as="span">
-            <Text fontSize="2xl" fontWeight="bold">
-              ContactHub
-            </Text>
-          </Link>
-        </NextLink>
-      </Flex>
+      <NextLink href={ROUTES.Contacts}>
+        <Link as="span">
+          <Text fontSize="2xl" fontWeight="bold">
+            ContactHub
+          </Text>
+        </Link>
+      </NextLink>
     </Flex>
   );
 };
