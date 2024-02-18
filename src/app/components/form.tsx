@@ -11,6 +11,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import { AddIcon, EditIcon } from "@chakra-ui/icons";
+import { useContactContext } from "../ContactContext";
 
 type Inputs = {
   email: string;
@@ -24,10 +25,12 @@ export default function Form(props: { isAddMode?: boolean }) {
     register,
     formState: { errors, isSubmitting },
   } = useForm<Inputs>();
+  const contactContext = useContactContext();
 
   const onSubmit: SubmitHandler<Inputs> = (values) => {
     console.log("onSubmit called");
-    console.log(values);
+    contactContext?.setContact(values);
+    console.log(contactContext);
   };
 
   return (
