@@ -12,6 +12,7 @@ import {
 import { useRouter, useSearchParams } from "next/navigation";
 import { useContactContext, ContactType } from "@/contacts";
 import { ROUTES } from "@/routes";
+import { useEffect } from "react";
 
 export function AddEditContact() {
   const {
@@ -24,24 +25,23 @@ export function AddEditContact() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const emailParam = searchParams.get("email");
-  const isEdit = Boolean(emailParam);
+  const emailContact = searchParams.get("email");
+  const isEdit = Boolean(emailContact);
 
   const contactContext = useContactContext();
   if (!contactContext) return;
   const { contacts } = contactContext;
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-  //     getContact = lsContacts.find((item) => item["email"] === emailParam);
-  //     if (getContact) {
-  //       setValue("email", getContact.email);
-  //       setValue("firstname", getContact.firstname);
-  //       setValue("lastname", getContact.lastname);
-  //     }
-  //   }
-  // }, [emailParam]);
+  useEffect(() => {
+    if (!isEdit) return;
+    const editContact = contacts.find(
+      (contact) => contact.email === emailContact
+    );
+    if (!editContact) return;
+    setValue("email", editContact.email);
+    setValue("firstname", editContact.firstname);
+    setValue("lastname", editContact.lastname);
+  }, [isEdit]);
 
   const validateEmail = (value: string) => {
     if (isEdit) return true;
