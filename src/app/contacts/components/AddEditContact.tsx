@@ -1,14 +1,6 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  FormErrorMessage,
-  FormLabel,
-  FormControl,
-  Input,
-  Text,
-  Button,
-  Center,
-} from "@chakra-ui/react";
+import { Text, Button, Center, FormLabel, Input, FormErrorMessage, FormControl } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useContactContext, ContactType } from "@/contacts";
@@ -54,7 +46,7 @@ export function AddEditContact() {
     }
     return true;
   };
-
+  
   const onSubmit: SubmitHandler<ContactType> = (values) => {
     console.log("onSubmit called");
     contactContext?.setContact(values);
@@ -75,7 +67,7 @@ export function AddEditContact() {
           {isEdit ? "Edit User" : "Add User"}
         </Text>
       </Center>
-      <FormControl isInvalid={Boolean(errors.email)} pt={4}>
+      <FormControl isInvalid={Boolean(errors.email)} pt={4} isDisabled={isEdit}>
         <FormLabel htmlFor="email">Email</FormLabel>
         <Input
           id="email"
