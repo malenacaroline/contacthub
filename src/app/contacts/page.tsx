@@ -4,8 +4,11 @@ import { Box, Button } from "@chakra-ui/react";
 import { TableContact } from "../components/table";
 import { Inputs } from "../components/form";
 import { AddIcon } from "@chakra-ui/icons";
+import { ROUTES } from "../routes";
+import { usePathname } from "next/navigation";
 
 export default function Home() {
+  const pathname = usePathname();
   let lsContacts: Inputs[] = [];
 
   if (typeof window !== "undefined") {
@@ -17,7 +20,7 @@ export default function Home() {
   return (
     <div>
       <Box mt={4}>
-        <NextLink href="/contacts/add" passHref>
+        <NextLink href={`${pathname}${ROUTES.Add}`} passHref>
           <Button colorScheme="teal" mb={4}>
             <AddIcon mr={2} />
             Add Contact

@@ -8,7 +8,6 @@ import {
   Text,
   Button,
   Center,
-  Icon,
 } from "@chakra-ui/react";
 import { useContactContext } from "../ContactContext";
 import { useSearchParams } from "next/navigation";

@@ -13,8 +13,12 @@ import {
 import { Inputs } from "./form";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { ROUTES } from "../routes";
+import { usePathname } from "next/navigation";
 
 export const TableContact = (props: { contacts: Inputs[] }) => {
+  const pathname = usePathname();
+  
   let getContact: Inputs | undefined;
   let lsContacts: Inputs[] = [];
 
@@ -49,7 +53,7 @@ export const TableContact = (props: { contacts: Inputs[] }) => {
               <Td>
                 <Flex>
                   <NextLink
-                    href={`/contacts/edit?email=${contact.email}`}
+                    href={`${pathname}${ROUTES.Edit}?email=${contact.email}`}
                     passHref
                   >
                     <Button colorScheme="teal" mr={4}>

@@ -1,5 +1,6 @@
 import { Flex, Link, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
+import { ROUTES } from "../routes";
 
 export const Navbar = () => {
   return (
@@ -13,7 +14,7 @@ export const Navbar = () => {
       color="white"
     >
       <Flex align="center" mr={5}>
-        <NextLink href="/" passHref>
+        <NextLink href={ROUTES.Contacts} passHref>
           <Link as="span">
             <Text fontSize="2xl" fontWeight="bold">
               ContactHub
