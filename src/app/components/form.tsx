@@ -19,7 +19,7 @@ export type Inputs = {
   lastname: string;
 };
 
-export default function Form() {
+export function Form() {
   const {
     handleSubmit,
     register,
