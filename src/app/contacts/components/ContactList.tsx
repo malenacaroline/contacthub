@@ -10,25 +10,25 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { ContactType } from "@/contacts";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { ROUTES } from "@/routes";
 import { usePathname } from "next/navigation";
+import { useContactContext } from "..";
 
-type TableProps = {
-  contacts: ContactType[];
-};
-
-export const ContactList = ({ contacts }: TableProps) => {
+export const ContactList = () => {
   const pathname = usePathname();
 
-  let lsContacts: ContactType[] = [];
+  const contactContext = useContactContext();
+  if (!contactContext) return;
+  const { contacts } = contactContext;
 
   const deleteContact = (email: string) => {
-    lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-    lsContacts = lsContacts.filter((item) => item["email"] !== email);
-    localStorage.setItem("contacts", JSON.stringify(lsContacts));
+    localStorage.setItem(
+      "contacts",
+      JSON.stringify(contacts.filter((contact) => contact.email !== email))
+    );
+    window.dispatchEvent(new Event('contactStorageEvent'));
   };
 
   return (

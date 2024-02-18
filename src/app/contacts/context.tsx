@@ -3,24 +3,38 @@ import {
   PropsWithChildren,
   createContext,
   useContext,
-  useMemo,
+  useEffect,
   useState,
 } from "react";
+import { ContactType } from ".";
 
 type ContactContextType = {
-  contact: {};
-  setContact: (contact: {}) => void;
+  contacts: ContactType[];
 };
 
 const ContactContext = createContext<ContactContextType | undefined>(undefined);
 
 export const ContactProvider = ({ children }: PropsWithChildren) => {
-  const [contact, setContact] = useState<{}>({});
+  const [contacts, setContacts] = useState<ContactType[]>([]);
 
-  const value = useMemo(() => ({ contact, setContact }), [contact]);
+  useEffect(() => {
+    const handleContactStorage = () => {
+      const lsContacts = localStorage.getItem("contacts");
+      if (!lsContacts) return;
+      setContacts(JSON.parse(lsContacts));
+    };
+    
+    handleContactStorage();
+
+    window.addEventListener("contactStorageEvent", handleContactStorage);
+    return () =>
+      window.removeEventListener("contactStorageEvent", handleContactStorage);
+  }, []);
 
   return (
-    <ContactContext.Provider value={value}>{children}</ContactContext.Provider>
+    <ContactContext.Provider value={{ contacts }}>
+      {children}
+    </ContactContext.Provider>
   );
 };
 

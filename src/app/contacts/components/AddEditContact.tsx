@@ -1,9 +1,17 @@
 "use client";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Text, Button, Center, FormLabel, Input, FormErrorMessage, FormControl } from "@chakra-ui/react";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import {
+  Text,
+  Button,
+  Center,
+  FormLabel,
+  Input,
+  FormErrorMessage,
+  FormControl,
+} from "@chakra-ui/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useContactContext, ContactType } from "@/contacts";
+import { ROUTES } from "@/routes";
 
 export function AddEditContact() {
   const {
@@ -13,51 +21,52 @@ export function AddEditContact() {
     setValue,
   } = useForm<ContactType>();
 
+  const router = useRouter();
+
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email");
   const isEdit = Boolean(emailParam);
 
   const contactContext = useContactContext();
+  if (!contactContext) return;
+  const { contacts } = contactContext;
 
-  let getContact: ContactType | undefined;
-  let lsContacts: ContactType[] = [];
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-      getContact = lsContacts.find((item) => item["email"] === emailParam);
-      if (getContact) {
-        setValue("email", getContact.email);
-        setValue("firstname", getContact.firstname);
-        setValue("lastname", getContact.lastname);
-      }
-    }
-  }, [emailParam]);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
+  //     getContact = lsContacts.find((item) => item["email"] === emailParam);
+  //     if (getContact) {
+  //       setValue("email", getContact.email);
+  //       setValue("firstname", getContact.firstname);
+  //       setValue("lastname", getContact.lastname);
+  //     }
+  //   }
+  // }, [emailParam]);
 
   const validateEmail = (value: string) => {
-    lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
-    console.log("validateEmail called");
-    console.log(value);
-    console.log(lsContacts);
-    const emailExists = lsContacts.some((contact) => contact.email === value);
-    console.log(emailExists);
-    if (!getContact && emailExists) {
-      return "Email already exists";
-    }
+    if (isEdit) return true;
+    const emailExists = contacts.some((contact) => contact.email === value);
+    if (emailExists) return "Email already exists";
     return true;
   };
-  
-  const onSubmit: SubmitHandler<ContactType> = (values) => {
-    console.log("onSubmit called");
-    contactContext?.setContact(values);
-    console.log(contactContext);
 
-    if (lsContacts) {
-      lsContacts.push(values);
-      localStorage.setItem("contacts", JSON.stringify(lsContacts));
-    } else {
-      localStorage.setItem("contacts", JSON.stringify(values));
-    }
+  const onSubmit: SubmitHandler<ContactType> = (newContact) => {
+    if (isEdit)
+      localStorage.setItem(
+        "contacts",
+        JSON.stringify(
+          contacts.map((contact) =>
+            contact.email === newContact.email ? newContact : contact
+          )
+        )
+      );
+    else
+      localStorage.setItem(
+        "contacts",
+        JSON.stringify([...contacts, newContact])
+      );
+    window.dispatchEvent(new Event("contactStorageEvent"));
+    router.push(ROUTES.Contacts);
   };
 
   return (
