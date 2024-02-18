@@ -1,6 +1,6 @@
 import { Flex, Link, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { ROUTES } from "../routes";
+import { ROUTES } from "@/routes";
 
 export const Navbar = () => {
   return (

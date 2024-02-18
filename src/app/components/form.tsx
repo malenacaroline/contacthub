@@ -9,7 +9,7 @@ import {
   Button,
   Center,
 } from "@chakra-ui/react";
-import { useContactContext } from "../ContactContext";
+import { useContactContext } from "@/ContactContext";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
@@ -26,12 +26,12 @@ export function Form() {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm<Inputs>();
-  
+
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email");
-  
+
   const contactContext = useContactContext();
-  
+
   let getContact: Inputs | undefined;
   let lsContacts: Inputs[] = [];
 
@@ -52,7 +52,7 @@ export function Form() {
     console.log("validateEmail called");
     console.log(value);
     console.log(lsContacts);
-    const emailExists = lsContacts.some(contact => contact.email === value);
+    const emailExists = lsContacts.some((contact) => contact.email === value);
     console.log(emailExists);
     if (!getContact && emailExists) {
       return "Email already exists";
@@ -93,7 +93,7 @@ export function Form() {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: "Invalid email address",
             },
-            validate: validateEmail
+            validate: validateEmail,
           })}
         />
         <FormErrorMessage>

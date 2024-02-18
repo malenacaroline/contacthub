@@ -10,10 +10,10 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { Inputs } from "./Form";
+import { Inputs } from "@/components/Form";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
-import { ROUTES } from "../routes";
+import { ROUTES } from "@/routes";
 import { usePathname } from "next/navigation";
 
 type TableProps = {
