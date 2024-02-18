@@ -9,6 +9,9 @@ import {
   Td,
   Flex,
   Button,
+  Text,
+  Spinner,
+  Center,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -21,9 +24,24 @@ export const ContactList = () => {
 
   const contactContext = useContactContext();
   if (!contactContext) return;
-  const { contacts } = contactContext;
+  const { contacts, isLoading } = contactContext;
 
   const { deleteContact } = useContactsCRUD();
+
+  if (isLoading)
+    return (
+      <Center>
+        <Spinner
+          thickness="3px"
+          emptyColor="gray.200"
+          color="teal.500"
+          size="lg"
+        />
+      </Center>
+    );
+
+  if (contacts.length === 0)
+    return <Text>There are no records. Add a new contact.</Text>;
 
   return (
     <TableContainer

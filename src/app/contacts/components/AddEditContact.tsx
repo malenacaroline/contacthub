@@ -105,7 +105,6 @@ export function AddEditContact() {
           id="lastname"
           placeholder="Lastname"
           {...register("lastname", {
-            required: "This is required",
             minLength: {
               value: 2,
               message: "Minimum length should be 2",

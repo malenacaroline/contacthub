@@ -1,6 +1,6 @@
 "use client";
 import NextLink from "next/link";
-import { Box, Button } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import { ContactList } from "@/contacts/components";
 import { AddIcon } from "@chakra-ui/icons";
 import { ROUTES } from "@/routes";
@@ -10,14 +10,17 @@ export default function Home() {
   const pathname = usePathname();
 
   return (
-    <Box>
-      <NextLink href={`${pathname}${ROUTES.Add}`}>
-        <Button colorScheme="teal" mb={4}>
-          <AddIcon mr={2} />
-          Add Contact
-        </Button>
-      </NextLink>
+    <Stack spacing={4}>
+      <Button
+        as={NextLink}
+        href={`${pathname}${ROUTES.Add}`}
+        alignSelf="start"
+        colorScheme="teal"
+      >
+        <AddIcon mr={2} />
+        Add Contact
+      </Button>
       <ContactList />
-    </Box>
+    </Stack>
   );
 }
