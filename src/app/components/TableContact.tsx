@@ -10,7 +10,7 @@ import {
   Flex,
   Button,
 } from "@chakra-ui/react";
-import { Inputs } from "./form";
+import { Inputs } from "./Form";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import { ROUTES } from "../routes";

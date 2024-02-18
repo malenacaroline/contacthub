@@ -1,8 +1,8 @@
 "use client";
 import NextLink from "next/link";
 import { Box, Button } from "@chakra-ui/react";
-import { TableContact } from "../components/table";
-import { Inputs } from "../components/form";
+import { TableContact } from "../components/TableContact";
+import { Inputs } from "../components/Form";
 import { AddIcon } from "@chakra-ui/icons";
 import { ROUTES } from "../routes";
 import { usePathname } from "next/navigation";
