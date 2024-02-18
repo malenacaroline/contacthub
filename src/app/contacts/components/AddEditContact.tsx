@@ -29,6 +29,7 @@ export function AddEditContact() {
 
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email");
+  const isEdit = Boolean(emailParam);
 
   const contactContext = useContactContext();
 
@@ -67,7 +68,6 @@ export function AddEditContact() {
 
     if (lsContacts) {
       lsContacts.push(values);
-      console.log(lsContacts);
       localStorage.setItem("contacts", JSON.stringify(lsContacts));
     } else {
       localStorage.setItem("contacts", JSON.stringify(values));
@@ -78,7 +78,7 @@ export function AddEditContact() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Center>
         <Text as="h1" fontSize="3xl" fontWeight="bold" color="teal.500">
-          {emailParam ? "Edit User" : "Add User"}
+          {isEdit ? "Edit User" : "Add User"}
         </Text>
       </Center>
       <FormControl isInvalid={Boolean(errors.email)} pt={4}>
@@ -140,7 +140,7 @@ export function AddEditContact() {
         type="submit"
         mt={4}
       >
-        {emailParam ? "Save Changes" : "Add User"}
+        {isEdit ? "Save Changes" : "Add User"}
       </Button>
     </form>
   );
