@@ -10,12 +10,11 @@ import {
   Center,
   Icon,
 } from "@chakra-ui/react";
-import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import { useContactContext } from "../ContactContext";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-type Inputs = {
+export type Inputs = {
   email: string;
   firstname: string;
   lastname: string;
@@ -55,7 +54,7 @@ export default function Form() {
     console.log(lsContacts);
     const emailExists = lsContacts.some(contact => contact.email === value);
     console.log(emailExists);
-    if (emailExists) {
+    if (!getContact && emailExists) {
       return "Email already exists";
     }
     return true;
@@ -79,7 +78,7 @@ export default function Form() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Center>
         <Text as="h1" fontSize="3xl" fontWeight="bold" color="teal.500">
-          {emailParam ? "Add User" : "Edit User"}
+          {emailParam ? "Edit User" : "Add User"}
         </Text>
       </Center>
       <FormControl isInvalid={Boolean(errors.email)} pt={4}>
@@ -141,7 +140,7 @@ export default function Form() {
         type="submit"
         mt={4}
       >
-        {emailParam ? "Add User" : "Save Changes"}
+        {emailParam ? "Save Changes" : "Add User"}
       </Button>
     </form>
   );

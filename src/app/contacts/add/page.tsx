@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button } from "@chakra-ui/react";
-import Form from "../components/form";
-import { useContactContext } from "../ContactContext";
+import Form from "../../components/form";
+import { useContactContext } from "../../ContactContext";
 
 export default function AddContact() {
   const contactContext = useContactContext();

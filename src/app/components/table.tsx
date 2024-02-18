@@ -1,52 +1,64 @@
 import * as React from "react";
 import {
   TableContainer,
-  Table as TableUI,
+  Table,
   Thead,
-  TableCaption,
   Tbody,
   Tr,
   Th,
   Td,
-  Tfoot,
+  Flex,
+  Button
 } from "@chakra-ui/react";
-export const Table = () => {
+import { Inputs } from "./form";
+import NextLink from "next/link";
+import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+
+export const TableContact = (props: { contacts: Inputs[] }) => {
+  console.log("table");
+  console.log(props.contacts);
   return (
-    <TableContainer>
-      <TableUI variant="simple">
-        <TableCaption>Imperial to metric conversion factors</TableCaption>
+    <TableContainer
+      border="2px"
+      borderColor="gray.200"
+      borderRadius="lg"
+      padding={4}
+    >
+      <Table variant="striped">
         <Thead>
           <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
-            <Th isNumeric>multiply by</Th>
+            <Th>First Name</Th>
+            <Th>Last Name</Th>
+            <Th>Email</Th>
+            <Th>Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
-          <Tr>
-            <Td>inches</Td>
-            <Td>millimetres (mm)</Td>
-            <Td isNumeric>25.4</Td>
-          </Tr>
-          <Tr>
-            <Td>feet</Td>
-            <Td>centimetres (cm)</Td>
-            <Td isNumeric>30.48</Td>
-          </Tr>
-          <Tr>
-            <Td>yards</Td>
-            <Td>metres (m)</Td>
-            <Td isNumeric>0.91444</Td>
-          </Tr>
+          {props.contacts.map((contact, index) => (
+            <Tr key={index}>
+              <Td>{contact.firstname}</Td>
+              <Td>{contact.lastname}</Td>
+              <Td>{contact.email}</Td>
+              <Td>
+                <Flex>
+                  <NextLink href={`/contacts/edit?email=${contact.email}`} passHref>
+                    <Button colorScheme="teal" mr={4}>
+                      <EditIcon />
+                    </Button>
+                  </NextLink>
+
+                  <NextLink href="/contacts/add" passHref>
+                    <Button colorScheme="red">
+                      <DeleteIcon/>
+                    </Button>
+                  </NextLink>
+
+                </Flex>
+              </Td>
+            </Tr>
+          ))}
         </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
-            <Th isNumeric>multiply by</Th>
-          </Tr>
-        </Tfoot>
-      </TableUI>
+      </Table>
     </TableContainer>
   );
-}
+};
