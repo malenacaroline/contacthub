@@ -18,16 +18,14 @@ export default function Home() {
   console.log(lsContacts);
 
   return (
-    <div>
-      <Box mt={4}>
-        <NextLink href={`${pathname}${ROUTES.Add}`}>
-          <Button colorScheme="teal" mb={4}>
-            <AddIcon mr={2} />
-            Add Contact
-          </Button>
-        </NextLink>
-        <TableContact contacts={lsContacts} />
-      </Box>
-    </div>
+    <Box>
+      <NextLink href={`${pathname}${ROUTES.Add}`}>
+        <Button colorScheme="teal" mb={4}>
+          <AddIcon mr={2} />
+          Add Contact
+        </Button>
+      </NextLink>
+      <TableContact contacts={lsContacts} />
+    </Box>
   );
 }

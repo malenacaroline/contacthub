@@ -14,7 +14,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body>
         <Providers>
           <Navbar />
-          <Container maxW="4xl">{children}</Container>
+          <Container maxW="4xl" mt={4}>{children}</Container>
         </Providers>
       </body>
     </html>
