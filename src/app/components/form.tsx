@@ -27,12 +27,13 @@ export default function Form() {
     formState: { errors, isSubmitting },
     setValue,
   } = useForm<Inputs>();
-  let getContact: Inputs | undefined;
-
+  
   const searchParams = useSearchParams();
   const emailParam = searchParams.get("email");
-
+  
   const contactContext = useContactContext();
+  
+  let getContact: Inputs | undefined;
   let lsContacts: Inputs[] = [];
 
   useEffect(() => {

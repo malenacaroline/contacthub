@@ -8,15 +8,22 @@ import {
   Th,
   Td,
   Flex,
-  Button
+  Button,
 } from "@chakra-ui/react";
 import { Inputs } from "./form";
 import NextLink from "next/link";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 
 export const TableContact = (props: { contacts: Inputs[] }) => {
-  console.log("table");
-  console.log(props.contacts);
+  let getContact: Inputs | undefined;
+  let lsContacts: Inputs[] = [];
+
+  const deleteContact = (email: string) => {
+    lsContacts = JSON.parse(localStorage.getItem("contacts") || "[]");
+    lsContacts = lsContacts.filter((item) => item["email"]!== email);
+    localStorage.setItem("contacts", JSON.stringify(lsContacts));
+  };
+
   return (
     <TableContainer
       border="2px"
@@ -41,18 +48,21 @@ export const TableContact = (props: { contacts: Inputs[] }) => {
               <Td>{contact.email}</Td>
               <Td>
                 <Flex>
-                  <NextLink href={`/contacts/edit?email=${contact.email}`} passHref>
+                  <NextLink
+                    href={`/contacts/edit?email=${contact.email}`}
+                    passHref
+                  >
                     <Button colorScheme="teal" mr={4}>
                       <EditIcon />
                     </Button>
                   </NextLink>
 
-                  <NextLink href="/contacts/add" passHref>
-                    <Button colorScheme="red">
-                      <DeleteIcon/>
-                    </Button>
-                  </NextLink>
-
+                  <Button
+                    colorScheme="red"
+                    onClick={() => deleteContact(contact.email)}
+                  >
+                    <DeleteIcon />
+                  </Button>
                 </Flex>
               </Td>
             </Tr>
